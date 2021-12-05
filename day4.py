@@ -1,42 +1,71 @@
 import numpy as np
 
-with open('example.txt') as f:
-    bingo_numbers = f.readline()
-    datas = f.readlines()
-
-datas.pop(0)
-datas.remove("\n")
-datas_clean = []
-for data in datas:
-    datas_clean.append(data.strip())
-print((datas_clean))
-print(len(datas_clean))
-a = (len(datas_clean)-1) / 5
-print(a)
-matrice = np.zeros((int(a), 5), dtype='int8')
-matrice2 = []
-print(matrice)
-m = -1
-for index, data in enumerate(datas_clean):
-    if index%5 == 0:
-        m += 1
-
-    list1 = data.split()
-    map_object = map(int, list1)
-    list2 = list(map_object)
-    matrice2.append([[list2]])
-
-    # matrice[index][m].append(list2)
-
-print(matrice2)
-# matrice[index] = list2
-# print(matrice)
-# print(index, index%5)
+cards = []
+cards_truth = []
 
 
-# a_string = "1 2 3"
-# a_list = a_string.split()
-# map_object = map(int, a_list)
-#
-# list_of_integers = list(map_object)
-# print(list_of_integers)
+def check_bingo(card_truth, line, col):
+    valid = True
+    for i in range(0, len(card_truth[line])):
+        if not card_truth[line][i]:
+            valid = False
+            break
+
+    if valid:
+        return True
+
+    for i in range(0, len(card_truth)):
+        if not card_truth[i][col]:
+            return False
+
+    return True
+
+
+def calcul_points(winner_card, winner_card_truth, last_number):
+    points = 0
+    for i in range(0, len(winner_card)):
+        for j in range(0, len(winner_card[i])):
+            if not winner_card_truth[i][j]:
+                points = points + winner_card[i][j]
+    return points * last_number
+
+
+def search_winner():
+    print(cards_truth)
+    for bingo_number in bingo_numbers:
+        print("searching ", bingo_number)
+        for card_index in range(0, len(cards)):
+            card = cards[card_index]
+            card_truth = cards_truth[card_index]
+            for i in range(0, len(card)):
+                line = card[i]
+                for j in range(0, len(line)):
+                    card_number = line[j]
+                    if card_number == int(bingo_number):
+                        card_truth[i][j] = True
+                        if check_bingo(card_truth, i, j):
+                            print("WINNER: ", card_index, "with:", calcul_points(card, card_truth, int(bingo_number)))
+                            return
+
+
+with open('input4.txt') as f:
+    bingo_numbers = f.readline().strip().split(',')
+    f.readline()
+    card = []
+    card_truth = []
+    for line in f:
+        if line != "\n":
+            list1 = line.strip().split()
+            map_object = map(int, list1)
+            line = list(map_object)
+            card.append(line)
+            card_truth.append([False] * len(line))
+        else:
+            cards.append(card)
+            cards_truth.append(card_truth)
+            card = []
+            card_truth = []
+    cards.append(card)  # la derniere ligne n'est pas un \n
+    cards_truth.append(card_truth)
+
+search_winner()
