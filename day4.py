@@ -1,5 +1,3 @@
-import numpy as np
-
 cards = []
 cards_truth = []
 
@@ -21,7 +19,7 @@ def check_bingo(card_truth, line, col):
     return True
 
 
-def calcul_points(winner_card, winner_card_truth, last_number):
+def compute_points(winner_card, winner_card_truth, last_number):
     points = 0
     for i in range(0, len(winner_card)):
         for j in range(0, len(winner_card[i])):
@@ -33,7 +31,7 @@ def calcul_points(winner_card, winner_card_truth, last_number):
 def search_winner():
     print(cards_truth)
     for bingo_number in bingo_numbers:
-        print("searching ", bingo_number)
+        print("You can check", bingo_number)
         for card_index in range(0, len(cards)):
             card = cards[card_index]
             card_truth = cards_truth[card_index]
@@ -44,7 +42,7 @@ def search_winner():
                     if card_number == int(bingo_number):
                         card_truth[i][j] = True
                         if check_bingo(card_truth, i, j):
-                            print("WINNER: ", card_index, "with:", calcul_points(card, card_truth, int(bingo_number)))
+                            print("Card number", card_index, "win this bingo with", compute_points(card, card_truth, int(bingo_number)), "points!")
                             return
 
 

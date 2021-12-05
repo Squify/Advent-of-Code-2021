@@ -1,5 +1,3 @@
-import numpy as np
-
 cards = []
 cards_truth = []
 
@@ -32,7 +30,7 @@ def verify_number(bingo_number, card, card_truth):
     return False
 
 
-def calcul_points(winner_card, winner_card_truth):
+def compute_points(winner_card, winner_card_truth):
     points = 0
     for i in range(0, len(winner_card)):
         for j in range(0, len(winner_card[i])):
@@ -44,20 +42,19 @@ def calcul_points(winner_card, winner_card_truth):
 def search_winner():
     print(cards_truth)
     winners = []
-    sum_of_unmarked = 0
     points = 0
     for bingo_number in bingo_numbers:
-        print("searching ", bingo_number)
+        print("You can check", bingo_number)
         for card_index in range(0, len(cards)):
             card = cards[card_index]
             card_truth = cards_truth[card_index]
             if card_index not in winners and verify_number(bingo_number, card, card_truth):
                 winners.append(card_index)
-                sum_of_unmarked = calcul_points(card, card_truth)
+                sum_of_unmarked = compute_points(card, card_truth)
                 points = sum_of_unmarked * int(bingo_number)
         if len(cards) == len(winners):
             break
-    print(winners[-1], "with sum", sum_of_unmarked, "and", points, "points")
+    print("Card number", winners[-1], "win this bingo with", points, "points!")
 
 
 with open('input4.txt') as f:
