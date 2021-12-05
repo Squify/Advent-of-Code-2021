@@ -14,5 +14,4 @@ for data in datas:
         horizontal += int(instruction[1])
         depth += aim * int(instruction[1])
 
-print(horizontal, depth)
-print(horizontal*depth)
+print("The horizontal position is", horizontal, "at", depth, "depth. The final result is", horizontal*depth)

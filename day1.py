@@ -1,3 +1,4 @@
+# PART 1 ----------------------
 with open('input1.txt') as f:
     datas = f.readlines()
 
@@ -16,14 +17,9 @@ for data in datas:
         larger_counter += 1
     previous_data = int(data)
 
-print(larger_counter)
+print("Depth measurement increases", larger_counter, "time")
 
-
-
-
-# with open('example.txt') as f:
-#     datas = f.readlines()
-
+# PART 2 ----------------------
 previous_sum = None
 larger_counter_sum = 0
 for index, data in enumerate(datas):
@@ -38,4 +34,4 @@ for index, data in enumerate(datas):
                 larger_counter_sum += 1
         previous_sum = int(sum)
 
-print(larger_counter_sum)
+print("Depth measurement increases", larger_counter_sum, "time")
