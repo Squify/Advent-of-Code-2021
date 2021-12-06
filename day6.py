@@ -1,22 +1,41 @@
-with open('example.txt') as f:
+with open('input6.txt') as f:
     lanternfishs = f.readline().strip().split(',')
+
+
+def get_timers(lanternfishs):
+    return {
+        "8": len(list(filter(lambda timer: timer == 8, lanternfishs))),
+        "7": len(list(filter(lambda timer: timer == 7, lanternfishs))),
+        "6": len(list(filter(lambda timer: timer == 6, lanternfishs))),
+        "5": len(list(filter(lambda timer: timer == 5, lanternfishs))),
+        "4": len(list(filter(lambda timer: timer == 4, lanternfishs))),
+        "3": len(list(filter(lambda timer: timer == 3, lanternfishs))),
+        "2": len(list(filter(lambda timer: timer == 2, lanternfishs))),
+        "1": len(list(filter(lambda timer: timer == 1, lanternfishs))),
+        "0": len(list(filter(lambda timer: timer == 0, lanternfishs))),
+    }
+
+
+def sum_of_fishs(lanternfishs):
+    total = 0
+    for i in range(0, 9):
+        total += lanternfishs[str(i)]
+    return total
+
 
 map_object = map(int, lanternfishs)
 lanternfishs = list(map_object)
 
-print(lanternfishs)
-
 days_to_go = int(input("How many days:"))
+
+timers = get_timers(lanternfishs)
 for day in range(1, days_to_go + 1):
-    new_fish = 0
-    for index, fish in enumerate(lanternfishs):
-        if fish == 0:
-            new_fish += 1
-            lanternfishs[index] = 6
-        else:
-            lanternfishs[index] -= 1
+    timers_2 = get_timers(lanternfishs)
+    new_fishs = timers['0']
+    for i in range(0, 8):
+        timers_2[str(i)] = timers[str(i + 1)]
+    timers_2['6'] = timers['7'] + new_fishs
+    timers_2['8'] = new_fishs
+    timers = timers_2
 
-    newborn_fish = [8] * new_fish
-    lanternfishs.extend(newborn_fish)
-
-print(len(lanternfishs))
+    print("There's", sum_of_fishs(timers), "lanternfishs on day", day)
