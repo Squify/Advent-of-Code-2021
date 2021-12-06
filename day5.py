@@ -21,7 +21,7 @@ class Coordinates:
             return True
         return False
 
-    def is_possible(self):
+    def is_diagonal(self):
         return self.is_horizontal() + self.is_vertical() == 1
 
     def reverse(self):
@@ -58,7 +58,7 @@ diagram = np.full([1000, 1000], '.').tolist()
 
 for line in lines_of_vents:
     coordinates = get_coordinates(line)
-    if not coordinates.is_possible():
+    if not coordinates.is_diagonal():
         continue
     coordinates.reverse()
     if coordinates.is_horizontal():
