@@ -26,9 +26,9 @@ positions = {}
 
 
 
-positions[a] = horizontal_positions[a]
-positions[nearest_index_with_this_position] = horizontal_positions[nearest_index_with_this_position]
-positions[b] = horizontal_positions[b]
+#positions[a] = horizontal_positions[a]
+#positions[nearest_index_with_this_position] = horizontal_positions[nearest_index_with_this_position]
+#positions[b] = horizontal_positions[b]
 
 
 
@@ -39,13 +39,13 @@ positions[b] = horizontal_positions[b]
 print(positions)
 
 # print(positions)
-ideal_position = max(positions, key=positions.get)
+#ideal_position = max(positions, key=positions.get)
 
 fuel = 0
 for position in horizontal_positions:
     # print(position)
     # difference index ideal * values
-    consumption = abs(position - ideal_position) * horizontal_positions[position]
+    consumption = abs(position - horizontal_positions[nearest_index_with_this_position]) * horizontal_positions[position]
     # print(consumption)
     fuel += consumption
 print(fuel)
