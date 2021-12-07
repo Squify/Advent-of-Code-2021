@@ -1,5 +1,7 @@
 with open('input6.txt') as f:
     lanternfishs = f.readline().strip().split(',')
+map_object = map(int, lanternfishs)
+lanternfishs = list(map_object)
 
 
 def get_timers(lanternfishs):
@@ -22,9 +24,6 @@ def sum_of_fishs(lanternfishs):
         total += lanternfishs[str(i)]
     return total
 
-
-map_object = map(int, lanternfishs)
-lanternfishs = list(map_object)
 
 days_to_go = int(input("How many days:"))
 
