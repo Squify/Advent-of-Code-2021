@@ -18,7 +18,8 @@ for i in range(min(crabs_positions), max(crabs_positions) + 1):
         horizontal_positions[i] = how_many_in_this_position
 
 fuel_minimum = 0
-for position_to_go in horizontal_positions:
+#for position_to_go in horizontal_positions:
+for position_to_go in range(min(horizontal_positions.keys()), max(horizontal_positions.keys()) + 1):
     fuel = 0
     for position in horizontal_positions:
         calcul = 0
@@ -42,7 +43,8 @@ for position_to_go in horizontal_positions:
     if fuel > fuel_minimum:
         fuel_minimum = fuel
 
-for position_to_go in horizontal_positions:
+#for position_to_go in horizontal_positions:
+for position_to_go in range(min(horizontal_positions.keys()), max(horizontal_positions.keys()) + 1):
     fuel = 0
     for position in horizontal_positions:
         calcul = 0
@@ -58,10 +60,15 @@ for position_to_go in horizontal_positions:
         elif position > position_to_go:
             #print("calcul", position, "-", position_to_go, "is", position - position_to_go, "*", horizontal_positions[position], "=", (position_to_go - position) * horizontal_positions[position])
             calcul = (position - position_to_go)
+            result = 0
+            for i in range(1, calcul+1):
+                result = result + i
             fuel += compute_fuel_p2(calcul) * horizontal_positions[position]
-        #print("Trying to go", position_to_go, "with", position, "equal:", calcul)
-    #print(fuel)
+            #fuel += compute_fuel_p2(calcul) * horizontal_positions[position]
+        #print("Trying to go", position_to_go, "with", position, "equal:", compute_fuel_p2(calcul))
+        #print(calcul)
+    print("result", fuel)
     if fuel < fuel_minimum:
         fuel_minimum = fuel
 
-print(fuel_minimum)
+print("final",fuel_minimum)
