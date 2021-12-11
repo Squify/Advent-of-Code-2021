@@ -18,17 +18,17 @@ def get_excepted(character):
         return ">"
 
 
-def count_missing_points(buffer):
+def count_missing_points(missings):
     result = 0
-    for character in buffer:
+    for missing_character in missings:
         points = 0
-        if character == "(":
+        if missing_character == "(":
             points = 1
-        elif character == "[":
+        elif missing_character == "[":
             points = 2
-        elif character == "{":
+        elif missing_character == "{":
             points = 3
-        elif character == "<":
+        elif missing_character == "<":
             points = 4
         result = result * 5
         result = result + points
