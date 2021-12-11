@@ -1,5 +1,7 @@
 import numpy as np
-from useful_methods import print_matrice
+
+from useful_methods import *
+
 
 class Coordinates:
     def __init__(self, x1, y1, x2, y2):
@@ -9,22 +11,29 @@ class Coordinates:
         self.y2 = y2
 
     def display(self):
-        print(self.x1, ";", self.y1, "->", self.x2,";", self.y2)
+        print(self.x1, ";", self.y1, "->", self.x2, ";", self.y2)
 
     def is_horizontal(self):
-        if self.x1 == self.x2:
-            return True
-        return False
+        return self.x1 == self.x2
 
     def is_vertical(self):
-        if self.y1 == self.y2:
+        return self.y1 == self.y2
+
+    def is_diagonal(self):
+        if self.is_horizontal() + self.is_vertical() == 0:
+            if self.x2 > self.x1:
+                x1 = self.x1
+                y1 = self.y1
+
+                self.x1 = self.x2
+                self.y1 = self.y2
+
+                self.x2 = x1
+                self.y2 = y1
             return True
         return False
 
-    def is_diagonal(self):
-        return self.is_horizontal() + self.is_vertical() == 1
-
-    def reverse(self):
+    def reverse_if_necessary(self):
         if self.is_horizontal() and self.y2 < self.y1:
             y1 = self.y1
             self.y1 = self.y2
@@ -53,14 +62,19 @@ def count_elements(diagram):
     print("There's", count, "points with at least two lines overlap")
 
 
-lines_of_vents = [f.rstrip() for f in open('input5.txt').readlines()]
-diagram = np.full([1000, 1000], '.').tolist()
+lines_of_vents = [f.rstrip() for f in open('example.txt').readlines()]
+diagram = np.full([10, 10], '.').tolist()
 
 for line in lines_of_vents:
     coordinates = get_coordinates(line)
-    if not coordinates.is_diagonal():
+    if coordinates.is_diagonal():
+        print("\ndiagonal")
+
+        coordinates.display()
+        print()
         continue
-    coordinates.reverse()
+    coordinates.reverse_if_necessary()
+    coordinates.display()
     if coordinates.is_horizontal():
         for y in range(coordinates.y1, coordinates.y2 + 1):
             if diagram[y][coordinates.x1] == '.':
