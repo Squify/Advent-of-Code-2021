@@ -9,15 +9,16 @@ def map_matrice_str_to_int(m):
     return m
 
 
-def import_matrice_from_file(f):
+def import_matrice_from_file(filename):
     matrice = []
-    for data in f:
-        line = []
-        for i in data:
-            if i != '\n':
-                line.append(i)
-        matrice.append(line)
-    return map_matrice_str_to_int(matrice)
+    with open(filename) as f:
+        for data in f:
+            line = []
+            for i in data:
+                if i != '\n':
+                    line.append(i)
+            matrice.append(line)
+    return matrice
 
 
 def import_truth_matrice_from_file(f):

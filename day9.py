@@ -1,4 +1,4 @@
-from useful_methods import print_matrice
+from useful_methods import print_matrice, import_matrice_from_file
 numbers = []
 numbers_truth = []
 
@@ -31,17 +31,7 @@ def basin_size(x, y, numbers):
     return size
 
 
-with open('example.txt') as f:
-    for data in f:
-        line = []
-        line_truth = []
-        for i in data:
-            if i != '\n':
-                line.append(i)
-                line_truth.append(False)
-        numbers.append(line)
-        numbers_truth.append(line_truth)
-
+import_matrice_from_file('example.txt')
 print_matrice(numbers_truth)
 
 for index, line in enumerate(numbers):
