@@ -1,3 +1,4 @@
+from useful_methods import print_matrice
 numbers = []
 numbers_truth = []
 
@@ -41,13 +42,12 @@ with open('example.txt') as f:
         numbers.append(line)
         numbers_truth.append(line_truth)
 
-print('\n'.join(['\t'.join([str(cell) for cell in row]) for row in numbers_truth]))
+print_matrice(numbers_truth)
 
 for index, line in enumerate(numbers):
     map_object = map(int, line)
     numbers[index] = list(map_object)
 
-# print('\n'.join(['\t'.join([str(cell) for cell in row]) for row in numbers]))
 risk_level = 0
 largest_basins = [1, 1, 1]
 

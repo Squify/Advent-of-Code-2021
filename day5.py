@@ -1,5 +1,5 @@
 import numpy as np
-
+from useful_methods import print_matrice
 
 class Coordinates:
     def __init__(self, x1, y1, x2, y2):
@@ -75,4 +75,4 @@ for line in lines_of_vents:
                 diagram[coordinates.y1][x] += 1
 
 count_elements(diagram)
-#print('\n'.join(['\t'.join([str(cell) for cell in row]) for row in diagram]))
+print_matrice(diagram)
