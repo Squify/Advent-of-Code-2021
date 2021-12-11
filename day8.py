@@ -1,3 +1,4 @@
+# PART 1 ----------------------
 digits = {
     0: 0, #0 : abcefg / 6
     1: 0, #1 : cf // 2
@@ -37,8 +38,7 @@ for output in outputs:
 print("Part 1:")
 print("There's", digits[1] + digits[4] + digits[7] + digits[8], "simple digits")
 
-# ------------------
-
+# PART 2 ----------------------
 digits_correspondances = {
     'a': '',
     'b': '',
