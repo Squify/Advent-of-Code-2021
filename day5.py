@@ -1,7 +1,5 @@
 import numpy as np
 
-from useful_methods import *
-
 
 class Coordinates:
     def __init__(self, x1, y1, x2, y2):
@@ -62,19 +60,44 @@ def count_elements(diagram):
     print("There's", count, "points with at least two lines overlap")
 
 
-lines_of_vents = [f.rstrip() for f in open('example.txt').readlines()]
-diagram = np.full([10, 10], '.').tolist()
+lines_of_vents = [f.rstrip() for f in open('input5.txt').readlines()]
+diagram = np.full([1000, 1000], '.').tolist()
+# print_matrice(diagram)
 
 for line in lines_of_vents:
     coordinates = get_coordinates(line)
     if coordinates.is_diagonal():
-        print("\ndiagonal")
+        y_ = coordinates.y2 - coordinates.y1
+        x_ = coordinates.x2 - coordinates.x1
+        if y_ < 0 and x_ < 0:
+            for i, j in zip(range(0, -(y_) + 1), range(0, -(x_) + 1)):
+                if diagram[coordinates.y1 - i][coordinates.x1 - j] == '.':
+                    diagram[coordinates.y1 - i][coordinates.x1 - j] = 1
+                else:
+                    diagram[coordinates.y1 - i][coordinates.x1 - j] += 1
 
-        coordinates.display()
-        print()
+        elif y_ < 0 and x_ > 0:
+            for i, j in zip(range(0, -(y_) + 1), range(0, x_ + 1)):
+                if diagram[coordinates.y1 - i][coordinates.x1 + j] == '.':
+                    diagram[coordinates.y1 - i][coordinates.x1 + j] = 1
+                else:
+                    diagram[coordinates.y1 - i][coordinates.x1 + j] += 1
+
+        elif y_ > 0 and x_ < 0:
+            for i, j in zip(range(0, y_ + 1), range(0, -(x_) + 1)):
+                if diagram[coordinates.y1 + i][coordinates.x1 - j] == '.':
+                    diagram[coordinates.y1 + i][coordinates.x1 - j] = 1
+                else:
+                    diagram[coordinates.y1 + i][coordinates.x1 - j] += 1
+
+        elif y_ > 0 and x_ > 0:
+            for i, j in zip(range(0, y_ + 1), range(0, x_ + 1)):
+                if diagram[coordinates.y1 + i][coordinates.x1 + j] == '.':
+                    diagram[coordinates.y1 + i][coordinates.x1 + j] = 1
+                else:
+                    diagram[coordinates.y1 + i][coordinates.x1 + j] += 1
         continue
     coordinates.reverse_if_necessary()
-    coordinates.display()
     if coordinates.is_horizontal():
         for y in range(coordinates.y1, coordinates.y2 + 1):
             if diagram[y][coordinates.x1] == '.':
@@ -89,4 +112,4 @@ for line in lines_of_vents:
                 diagram[coordinates.y1][x] += 1
 
 count_elements(diagram)
-print_matrice(diagram)
+# print_matrice(diagram)
